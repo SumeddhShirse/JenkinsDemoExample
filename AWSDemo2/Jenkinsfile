@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Code') {
+            steps {
+                git url: 'https://github.com/YOUR-USER/YOUR-REPO.git', branch: 'main'
+            }
+        }
+
+        stage('Build Spring Boot') {
+            steps {
+                bat 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t springboot-app .'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                bat 'docker stop springboot-app || true'
+                bat 'docker rm springboot-app || true'
+                bat 'docker run -d --name springboot-app -p 8081:8080 springboot-app'
+            }
+        }
+    }
+}
