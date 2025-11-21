@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git url: 'https://github.com/YOUR-USER/YOUR-REPO.git', branch: 'main'
+                git url: 'https://github.com/SumeddhShirse/JenkinsDemoExample.git', branch: 'main'
             }
         }
 
@@ -29,3 +29,4 @@ pipeline {
         }
     }
 }
+
